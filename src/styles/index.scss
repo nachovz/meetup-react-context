@@ -12,3 +12,89 @@
     import 'relative/path/to/stylesheet.scss';
 
 */
+
+body{
+    font-family: 'Quicksand', sans-serif !important;
+    background-color: #fafafa;
+}
+
+.navbar{
+    padding: 1em 1em !important;
+    border-bottom: 1px solid #2e3e48;
+}
+
+.navbar-brand{
+    font-family: 'Delius', sans-serif;
+    font-size: 2em !important;
+    color: #28AFB0!important;
+    /*color: #17cdef !important; dark jungle green*/
+    /*#385F71 !important deep sea blue*/
+    /*#28AFB0!important light sea green*/
+    margin-left: 5%
+}
+
+.theDashboard{
+    margin-right: 5%;
+}
+
+.jumbotron{
+    background-color: #F7916C !important; /* pink organge */
+    /*#f7a284*/
+}
+
+/*font-family: 'Neucha', cursive;*/
+/*font-family: 'Delius', cursive;*/
+/*font-family: 'Short Stack', cursive;*/
+/*font-family: 'Muli', sans-serif;*/
+/*font-family: 'Quicksand', sans-serif;*/
+
+.eventHero{
+    background-color: white !important;
+    border-bottom: 1px solid #2e3e48;
+     padding: 2em 2em !important;
+}
+
+.eventDate {
+    margin-bottom: 0;
+    color: #708090;
+}
+
+.theHost{
+    padding: 0 0 0 30px !important;
+}
+
+/*.authors{*/
+/*    margin-left: .5em !important;*/
+/*}*/
+
+.socialMedia {
+    border-bottom: 1px solid #2e3e48;
+    border-top: 1px solid #2e3e48;
+    padding: 10px 0;
+    margin-top: 1em;
+    text-align: center;
+}
+
+.yesBTN{
+    margin-bottom: 1em;
+}
+
+.details{
+    margin-top: 1rem;
+}
+.card{
+    margin-bottom: 2em;
+}
+
+.authors{
+    margin-top: 1em;
+}
+
+.footer {
+	background-color: #17cdef;
+	
+}
+
+div.card {
+   border-width: 0px;
+}

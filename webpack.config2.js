@@ -1,21 +1,26 @@
+
 const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-  entry: ['./src/js/index.js'], 
+  entry: [
+    './src/js/index.js',  
+  ],
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'public')
   },
   module: {
     rules: [
-        { 
-          test: /\.(js|jsx)$/, 
-          exclude: /node_modules/, 
-          use: [
-            "babel-loader", 
-            "eslint-loader"
-            ]
+        {
+          test: /\.(js|jsx)$/,
+          exclude: /node_modules/,
+          use: ['babel-loader']
+        },
+        {
+          test: /\.(js|jsx)$/,
+          exclude: /node_modules/,
+          use: ['babel-loader', 'eslint-loader']
         },
         { test: /\.md$/, use: [
               {
@@ -30,8 +35,7 @@ module.exports = {
           ]
         },
         {
-          test: [/\.css$/, /\.scss$/],
-          use: [{
+          test: /\.scss$/, use: [{
               loader: "style-loader" // creates style nodes from JS strings
           }, {
               loader: "css-loader" // translates CSS into CommonJS
@@ -40,8 +44,7 @@ module.exports = {
           }]
         }, //css only files
         { 
-          test: /\.(png|svg|jpg|gif)$/, 
-          use: {
+          test: /\.(png|svg|jpg|gif)$/, use: {
             loader: 'file-loader',
             options: { name: '[name].[ext]' } 
           }
@@ -50,11 +53,11 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx']
+    extensions: ['*', '.js', '.jsx'],
   },
   devtool: "source-map",
   devServer: {
-    contentBase: './dist',
+    contentBase:  './dist',
     hot: true,
     disableHostCheck: true,
     historyApiFallback: true
@@ -62,9 +65,6 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.ProvidePlugin({
-      $: 'jquery',
-      Popper: 'popper.js',
-      jQuery: 'jquery',
       // In case you imported plugins individually, you must also require them here:
       Util: "exports-loader?Util!bootstrap/js/dist/util",
       Dropdown: "exports-loader?Dropdown!bootstrap/js/dist/dropdown",

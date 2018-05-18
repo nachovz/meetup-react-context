@@ -1,6 +1,9 @@
 //import react into the bundle
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactGA from 'react-ga';
+ReactGA.initialize('UA-41629310-5');
+
 
 //include jquery into the bundle and store its contents into the $ variable
 import $ from "jquery";
