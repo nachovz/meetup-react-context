@@ -15,8 +15,6 @@ import sessionActions from '../actions/SessionActions.jsx';
 
 import moment from "moment";
 
-import rigoImage from '../../img/rigo-baby.jpg';
-
 
 export default class Dashboard extends Flux.View {
     
