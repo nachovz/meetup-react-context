@@ -6,8 +6,6 @@ import { Button } from "react-bootstrap";
 import $ from "jquery";
 
 
-import MeetupActions from '../actions/MeetupActions.jsx';
-
 export default class Navbar extends React.Component{
     constructor(props, context){
         super(props, context);
@@ -39,13 +37,13 @@ export default class Navbar extends React.Component{
         e.preventDefault();
         // Here, we call an external AuthService. We’ll create it in the next step
         //MeetupActions.loadSession(this.state.username, this.state.password);
-        MeetupActions.loadSession(e.target[0].value, e.target[1].value);
+        //MeetupActions.loadSession(e.target[0].value, e.target[1].value);
         return false;
     }
     
     render(){
         let userInfo = <div></div>;
-            if( typeof(this.props.sessionData.user_nicename) !== 'undefined'){
+            if( this.props.sessionData && typeof(this.props.sessionData.user_nicename) !== 'undefined'){
                 $('#exampleModal').modal('hide');
                 userInfo =
                     <div className="d-flex">
