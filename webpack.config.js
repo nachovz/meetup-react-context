@@ -1,11 +1,13 @@
 const webpack = require('webpack');
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: ['./src/js/index.js'], 
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'public')
+    path: path.resolve(__dirname, 'public'),
+    publicPath: path.resolve(__dirname, '/')
   },
   module: {
     rules: [
@@ -67,7 +69,11 @@ module.exports = {
       jQuery: 'jquery',
       // In case you imported plugins individually, you must also require them here:
       Util: "exports-loader?Util!bootstrap/js/dist/util",
-      Dropdown: "exports-loader?Dropdown!bootstrap/js/dist/dropdown",
+      Dropdown: "exports-loader?Dropdown!bootstrap/js/dist/dropdown"
+    }),
+    new HtmlWebpackPlugin({
+        favicon: '4geeks.ico',
+        template: 'template.html'
     })
   ]
 };

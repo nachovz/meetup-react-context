@@ -13,7 +13,7 @@ export function withSession(Component) {
     // Notice that we pass through any additional props as well
     return (
         <Consumer>
-            {({state, actions}) => <Component {...props} session={state.session} actions={actions} />}
+            {(state, actions) => <Component {...props} session={state.session} actions={actions} />}
         </Consumer>
     );
   };

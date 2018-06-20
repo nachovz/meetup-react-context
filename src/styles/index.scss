@@ -15,22 +15,18 @@
 
 body{
     font-family: 'Quicksand', sans-serif !important;
-    background-color: #fafafa;
 }
 
 .navbar{
-    padding: 1em 1em !important;
-    border-bottom: 1px solid #2e3e48;
+    background-color: #3f3f3f !important;
+    color:white;
 }
 
 .navbar-brand{
-    font-family: 'Delius', sans-serif;
     font-size: 2em !important;
-    color: #28AFB0!important;
-    /*color: #17cdef !important; dark jungle green*/
-    /*#385F71 !important deep sea blue*/
-    /*#28AFB0!important light sea green*/
-    margin-left: 5%
+    color: white !important;
+    -webkit-filter: invert(100%);
+    filter: invert(100%);
 }
 
 .theDashboard{
@@ -38,25 +34,15 @@ body{
 }
 
 .jumbotron{
-    background-color: #F7916C !important; /* pink organge */
-    /*#f7a284*/
-}
-
-/*font-family: 'Neucha', cursive;*/
-/*font-family: 'Delius', cursive;*/
-/*font-family: 'Short Stack', cursive;*/
-/*font-family: 'Muli', sans-serif;*/
-/*font-family: 'Quicksand', sans-serif;*/
-
-.eventHero{
-    background-color: white !important;
+    background-color: #3f3f3f !important;
+    color: white;
     border-bottom: 1px solid #2e3e48;
-     padding: 2em 2em !important;
+    padding: 2em 2em !important;
 }
 
-.eventDate {
-    margin-bottom: 0;
-    color: #708090;
+.rsvpBox{
+    padding:1em;
+    background-color:gray;
 }
 
 .theHost{
@@ -66,14 +52,6 @@ body{
 /*.authors{*/
 /*    margin-left: .5em !important;*/
 /*}*/
-
-.socialMedia {
-    border-bottom: 1px solid #2e3e48;
-    border-top: 1px solid #2e3e48;
-    padding: 10px 0;
-    margin-top: 1em;
-    text-align: center;
-}
 
 .yesBTN{
     margin-bottom: 1em;
@@ -89,12 +67,15 @@ body{
 .authors{
     margin-top: 1em;
 }
-
-.footer {
-	background-color: #17cdef;
-	
+.socialIcons{
+    font-size: 2em;
 }
 
-div.card {
-   border-width: 0px;
+.socialIcons *:nth-child(2){
+    margin-left: 20px;
+}
+
+.footer{
+    background-color: #3f3f3f;
+    padding: 1em;
 }

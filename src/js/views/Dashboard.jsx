@@ -6,7 +6,6 @@ import Navbar from '../component/Navbar.jsx';
 import {Consumer} from '../stores/AppContext.jsx';
 
 //Functional Packages
-import InfiniteCalendar from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css';
 import moment from "moment";
 import ReactGA from 'react-ga';
@@ -28,14 +27,15 @@ export default class Dashboard extends React.Component {
 
                 <div className="jumbotron jumbotron-fluid" >
                     <div className="container text-center">
-                        <h1 className="display-4">Fluid jumbotron</h1>
-                        <p className="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+                        <h1 >The Meetup Clone</h1>
+                        <p className="lead">This is a mini project created by <a href="http://www.4geeksacademy.co">4GeeksAcademy</a></p>
+                        <small>Using: ReactJS, Bootstrap, @Fortawesome, Moment, React-router</small>
                     </div>
                 </div>
 
                 <div className="container">
                     <div className="row">
-                        <div className="col-md-8">
+                        <div className="col-md-8 col-lg-6 mx-auto">
                             <div className="row">
                                 <Consumer>
                                     {({ state }) => (
@@ -56,11 +56,20 @@ export default class Dashboard extends React.Component {
                                                             <h3>{eventDay.format("h:mm a").toString()}</h3>
                                                         </div>
                                                         <div className="col-9">
-                                                            <h5 className="card-title">{event.post_title}</h5>
+                                                            <h5 className="card-title"><Link to={"/event/"+event.ID}>{event.post_title}</Link></h5>
                                                             <h6>
-                                                                <Link className="card-text" to={"/meetup/"+event.meta_keys._meetup} > Meetup </Link>
+                                                                <Link 
+                                                                    className="card-text" 
+                                                                    to={"/meetup/"+event.meta_keys._meetup} 
+                                                                > 
+                                                                    {
+                                                                        state.meetups.length > 0 ?
+                                                                            state.meetups.find((meetup)=> meetup.ID === parseInt(event.meta_keys._meetup) ).post_title
+                                                                        :
+                                                                            "Loading..."
+                                                                    } 
+                                                                </Link>
                                                             </h6>
-                                                            <Link to={"/event/"+event.ID} className="btn btn-primary">View</Link>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -72,15 +81,6 @@ export default class Dashboard extends React.Component {
                                     )}
                                 </Consumer>
                             </div>
-                        </div>
-                        <div className="col-md-4">
-                            <InfiniteCalendar
-                                width={400}
-                                height={600}
-                                selected={today}
-                                disabledDays={[0,6]}
-                                minDate={lastWeek}
-                            />
                         </div>
                     </div>
                 </div>

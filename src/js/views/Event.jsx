@@ -1,6 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import faTw from '@fortawesome/fontawesome-free-brands/faTwitter';
+import faFa from '@fortawesome/fontawesome-free-brands/faFacebook';
+import faClock from '@fortawesome/fontawesome-free-solid/faClock';
 
 //Components
 import Navbar from '../component/Navbar.jsx';
@@ -12,6 +16,13 @@ import {Consumer} from '../stores/AppContext.jsx';
 
 export default class Event extends React.Component {
     
+    constructor(props){
+        super(props);
+        this.state = {
+          login: false  
+        };
+    }
+    
     render(){
         ReactGA.pageview(window.location.pathname + window.location.search);
         
@@ -20,8 +31,9 @@ export default class Event extends React.Component {
                 
                 <Navbar  />
                 <Consumer>
-                    {({ state }) => 
+                    {({ state, actions }) => 
                         {
+                            const user = state.session;
                             const event = state.events.find( event => event.ID === parseInt(this.props.match.params.theid) );
     
                             if(!event){ 
@@ -29,6 +41,8 @@ export default class Event extends React.Component {
                                 return(<p>Loading</p>);
                             
                             }else{ 
+                                const yesDisabled = typeof event.meta_keys._rsvpYes !== 'undefined' && event.meta_keys._rsvpYes.includes("nachovz")  ? "disabled" : "";
+                                const noDisabled =typeof event.meta_keys._rsvpNo !== 'undefined' && event.meta_keys._rsvpNo.includes("nachovz")  ? "disabled" : "";
                                 
                                 let aTime = event.meta_keys.day+"T"+event.meta_keys.time.replace(/:/g,'');
                                 let eventDay = Moment(aTime);
@@ -39,80 +53,104 @@ export default class Event extends React.Component {
                                             <div className="container-fluid">
                                                 <div className="row">
                                                     {/*left side */}
-                                                    <div className="col-md-8 jumboLeft">
+                                                    <div className="col-md-9">
                                                         <div className="row">
                                                             <div className="col-12">
                                                                 <p className="eventDate">{eventDay.format("MMM D").toString()}</p>
                                                                 <h1 className="eventTitle">{event.post_title}</h1>
-                                                                <div className="row">
-                                                                    <div className="col-md-2 text-center">
-                                                                
-                                                                        <img src="//placehold.it/50" className="rounded-circle" />
-                                                                    </div>
-                                                                    <div className="col-md-10 pt-1">
-                                                                        <span className="text">Hosted by</span>
-                                                                        <span className="link"> <Link to="/"> Mr. Whiskers</Link></span>
-                                                                        <p>
-                                                                            <span className="text">From</span>
-                                                                            <span className="link"> 
-                                                                                <Link to={"/meetup/"+event.meta_keys._meetup}> Meetup </Link>
-                                                                            </span>
-                                                                        </p>
-                                                                    </div>        
-                                                                </div>  
+                                                                <h4> 
+                                                                    <Link 
+                                                                        to={"/meetup/"+event.meta_keys._meetup} 
+                                                                    > 
+                                                                        {
+                                                                            state.meetups.length > 0 ?
+                                                                                state.meetups.find((meetup)=> meetup.ID === parseInt(event.meta_keys._meetup) ).post_title
+                                                                            :
+                                                                                "Loading..."
+                                                                        } 
+                                                                    </Link>
+                                                                </h4>
                                                             </div>
                                                         </div>
                                                     </div>
                         
                                                     {/*right side */}
-                                                    <div className="col-md-4 jumboRight">
-                                                        <div className="attendance">
-                                                            <p><strong>Are you going?</strong> X people going</p>
+                                                    <div className="col-md-3 text-center rounded rsvpBox">
+                                                        <h4 className="mb-4"> {event.meta_keys._rsvpYes.length} people going </h4>
+                                                        <div className="row rsvpBTN flex-nowrap mb-4">
+                                                            {!user.token ? 
+                                                                <div className="mx-auto"> 
+                                                                    <button type="button" 
+                                                                            className="btn btn-primary"
+                                                                            data-toggle="modal"
+                                                                            data-target="#exampleModal"
+                                                                            onClick={ () => this.setState({login: true})}
+                                                                            >
+                                                                            Login to RSVP
+                                                                    </button>
+                                                                </div>
+                                                            :
+                                                                <div>
+                                                                    <div className="col-md-5">
+                                                                        <button type="button" 
+                                                                                className="btn btn-primary w-100 yesBTN" 
+                                                                                disabled={yesDisabled} 
+                                                                                onClick={() => actions.rsvpEvent(   this.props.match.params.theid, 
+                                                                                                                    user.user_nicename, 
+                                                                                                                    "yes", 
+                                                                                                                    user.token)}
+                                                                                >
+                                                                                Yes
+                                                                        </button>
+                                                                    </div>
+                                                                    <div className="col-md-5">
+                                                                        <button type="button" 
+                                                                                className="btn btn-primary w-100 noBTN"
+                                                                                disabled={noDisabled}
+                                                                                onClick={() => actions.rsvpEvent(   this.props.match.params.theid, 
+                                                                                                                    user.user_nicename, 
+                                                                                                                    "no", 
+                                                                                                                    user.token)}
+                                                                                >
+                                                                                No
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            }
                                                         </div>
-                                                        {/*rsvpButtons*/}
-                                                        <div className="row socialMedia flex-nowrap">
-                                                            <div className="col-md-6">
-                                                                <button type="button" className="btn-floating btn-sm btn-twi"><i className="fab fa-twitter"></i></button>
-                                                                <span>Tweet It</span>
-                                                            </div>
-                                                            <div className="col-md-6">
-                                                                <a type="button" className="btn-floating btn-sm btn-fb"><i className="fab fa-facebook-f"></i></a>
-                                                                <span>Share It</span>
-                                                            </div>
+                                                        <div className="text-center socialIcons">
+                                                            <FontAwesomeIcon icon={faTw} />
+                                                            <FontAwesomeIcon icon={faFa} />
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                             
-                                        <div className="container-fluid">
+                                        <div className="container">
                                             <div className="row">
-                    
-                                                {/*body right side...when using order you're saying MEDIUM and up will be second*/}
-                                                <div className="col-md-4 order-md-2">
+                                                <div className="col-md-3 order-md-2">
                                                     <div className="card smallCard">
                                                         <div className="card-body">
                                                             <div className="row cardInfo">
-                                                                <div>
-                                                                    <span> <i className="far fa-clock"></i></span>
+                                                                <div className="col-2 socialIcons">
+                                                                    <FontAwesomeIcon icon={faClock}/>
                                                                 </div>
-                                                                <div>
+                                                                <div className="col-8">
                                                                     <span className="card-date">{eventDay.format("dddd, MMMM DD, YYYY").toString()}</span><br/>
                                                                     <span className="card-time">{eventDay.format("h:mm a").toString()}</span><br/>
                                                                     <span className="card-schedule">Every first and last Tuesday of the month</span>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <img top ="w-100" src="http://via.placeholder.com/350x150" alt="map of the location" />                            
-                                                        
                                                     </div>
                                                 </div>
                     
                                                 {/*body left side*/}
-                                                <div className="col-md-8 order-md-1">
+                                                <div className="col-md-9 order-md-1">
                                                     <div className="row">
                                                         <div className="col-12">
-                                                            <img className="img-fluid eventPhoto" src="http://via.placeholder.com/500X300" alt="event image of..." />
+                                                            <img className="img-fluid" src="http://via.placeholder.com/800X500" alt="event image of..." />
                                                             <h5 className="details"><strong>Details</strong></h5>
                                                             <p className="bodyText">Snuggle up with cute kitties, hot lattes, and a book. We host this event twice a month for a place to socialize or maybe come out for alternative therapy.<br/><br/>There are a few rules to follow for this event:</p>
                                                             <ul>
@@ -129,19 +167,9 @@ export default class Event extends React.Component {
                                         </div>
                     
                                         {/* the footer */}
-                                        <footer className="footer" id="footer">
-                                            <div className="container">
-                                                <div className="row justify-content-between">
-                                                    <div className="col-6">
-                                                        <img className="img-fluid" src="http://placehold.it/50x50" alt="" />
-                                                    </div>
-                                                    <div className="col-6">
-                                                        <ul className="footer__links list-inline text-right">
-                                                            <li className="footer__link list-inline-item">Blog</li>
-                                                            <li className="footer__link list-inline-item">Contact Us</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
+                                        <footer className="footer ">
+                                            <div className="container navbar-brand text-center">
+                                                <img className="img-fluid" src="https://www.4geeksacademy.co/wp-content/themes/the-fastest/assets/img/logo-black.png" />
                                             </div>
                                         </footer>
                                     </div>
