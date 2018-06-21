@@ -1,18 +1,5 @@
 @import '~bootstrap/scss/bootstrap.scss';
 
-
-/* 
-
-    You can write your own styles here...
-    
-    
-    ...Or you can use the import command to include 
-    other sylesheets into your bunde as well, e.j:
-    
-    import 'relative/path/to/stylesheet.scss';
-
-*/
-
 body{
     font-family: 'Quicksand', sans-serif !important;
 }
@@ -29,11 +16,7 @@ body{
     filter: invert(100%);
 }
 
-.theDashboard{
-    margin-right: 5%;
-}
-
-.jumbotron{
+.jumbotron-fluid{
     background-color: #3f3f3f !important;
     color: white;
     border-bottom: 1px solid #2e3e48;
@@ -45,28 +28,10 @@ body{
     background-color:gray;
 }
 
-.theHost{
-    padding: 0 0 0 30px !important;
-}
-
-/*.authors{*/
-/*    margin-left: .5em !important;*/
-/*}*/
-
-.yesBTN{
-    margin-bottom: 1em;
-}
-
-.details{
-    margin-top: 1rem;
-}
 .card{
     margin-bottom: 2em;
 }
 
-.authors{
-    margin-top: 1em;
-}
 .socialIcons{
     font-size: 2em;
 }
@@ -78,4 +43,7 @@ body{
 .footer{
     background-color: #3f3f3f;
     padding: 1em;
+}
+.navbar-light .navbar-nav .nav-link {
+    color: white !important;
 }

@@ -7,7 +7,7 @@ import {Consumer} from '../stores/AppContext.jsx';
 
 //Functional Packages
 import 'react-infinite-calendar/styles.css';
-import moment from "moment";
+import Moment from "moment";
 import ReactGA from 'react-ga';
 
 export default class Dashboard extends React.Component {
@@ -25,8 +25,8 @@ export default class Dashboard extends React.Component {
                 
                 <Navbar  currentView="home" />
 
-                <div className="jumbotron jumbotron-fluid" >
-                    <div className="container text-center">
+                <div className="jumbotron-fluid mb-3" >
+                    <div className="container-fluid text-center">
                         <h1 >The Meetup Clone</h1>
                         <p className="lead">This is a mini project created by <a href="http://www.4geeksacademy.co">4GeeksAcademy</a></p>
                         <small>Using: ReactJS, Bootstrap, @Fortawesome, Moment, React-router</small>
@@ -44,7 +44,7 @@ export default class Dashboard extends React.Component {
                                         :
                                         state.events.map( event => {
                                         let aTime = event.meta_keys.day+"T"+event.meta_keys.time.replace(/:/g,'');
-                                        let eventDay = moment(aTime);
+                                        let eventDay = Moment(aTime);
                                         return(
                                             <div className="card w-100" key={event.ID}>
                                                 <div className="card-header">

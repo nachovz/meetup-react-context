@@ -116,7 +116,8 @@ export default class Layout extends React.Component {
                 .then(response => {
                   this.dispatch('MeetupStore.setSession', response);
                 });*/
-              }
+              },
+              "logout": () => this.setState({session: {}})
     };
   }
   

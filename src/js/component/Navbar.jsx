@@ -15,10 +15,6 @@ class Navbar extends React.Component{
         };
     }
     
-    componentDidMount(){
-        //if(this.props.session.token) $('#exampleModal').modal('hide');
-    }
-    
     componentDidUpdate(prevProps, prevState) {
         // Previous ThemeContext value is prevProps.theme
         // New ThemeContext value is this.props.theme
@@ -47,9 +43,12 @@ class Navbar extends React.Component{
                                         <Link className="nav-item nav-link " to={"/user/"+session.user_nicename.value}>
                                                 Hello, {session.user_display_name.charAt(0).toUpperCase()+session.user_display_name.substring(1)}
                                         </Link>
+                                        <a className="nav-item nav-link" href="#" onClick={() => actions.logout()}>
+                                                Logout
+                                        </a>
                                     </div>
                                 :
-                                    <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onClick={this.handleShow}>Login</button>
+                                    <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Login</button>
                                 
                             }
                         </div>
