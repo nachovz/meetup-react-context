@@ -43,38 +43,38 @@ export default class Dashboard extends React.Component {
                                         state.isLoading ? (<p>Loading...</p>) 
                                         :
                                         state.events.map( event => {
-                                        let aTime = event.meta_keys.day+"T"+event.meta_keys.time.replace(/:/g,'');
-                                        let eventDay = Moment(aTime);
-                                        return(
-                                            <div className="card w-100" key={event.ID}>
-                                                <div className="card-header">
-                                                    <h2>{eventDay.format("MMMM D").toString()}</h2>
-                                                </div>
-                                                <div className="card-body">
-                                                    <div className="row">
-                                                        <div className="col-3">
-                                                            <h3>{eventDay.format("h:mm a").toString()}</h3>
-                                                        </div>
-                                                        <div className="col-9">
-                                                            <h5 className="card-title"><Link to={"/event/"+event.ID}>{event.post_title}</Link></h5>
-                                                            <h6>
-                                                                <Link 
-                                                                    className="card-text" 
-                                                                    to={"/meetup/"+event.meta_keys._meetup} 
-                                                                > 
-                                                                    {
-                                                                        state.meetups.length > 0 ?
-                                                                            state.meetups.find((meetup)=> meetup.ID === parseInt(event.meta_keys._meetup) ).post_title
-                                                                        :
-                                                                            "Loading..."
-                                                                    } 
-                                                                </Link>
-                                                            </h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ); 
+                                          let aTime = event.meta_keys.day+"T"+event.meta_keys.time.replace(/:/g,'');
+                                          let eventDay = Moment(aTime);
+                                          return(
+                                              <div className="card w-100" key={event.ID}>
+                                                  <div className="card-header">
+                                                      <h2>{eventDay.format("MMMM D").toString()}</h2>
+                                                  </div>
+                                                  <div className="card-body">
+                                                      <div className="row">
+                                                          <div className="col-3">
+                                                              <h3>{eventDay.format("h:mm a").toString()}</h3>
+                                                          </div>
+                                                          <div className="col-9">
+                                                              <h5 className="card-title"><Link to={"/event/"+event.ID}>{event.post_title}</Link></h5>
+                                                              <h6>
+                                                                  <Link 
+                                                                      className="card-text" 
+                                                                      to={"/meetup/"+event.meta_keys._meetup} 
+                                                                  > 
+                                                                      {
+                                                                          state.meetups.length > 0 && state.meetups.find((meetup)=> meetup.ID === parseInt(event.meta_keys._meetup) ) !== undefined ?
+                                                                              state.meetups.find((meetup)=> meetup.ID === parseInt(event.meta_keys._meetup) ).post_title
+                                                                          :
+                                                                              "Loading..."
+                                                                      } 
+                                                                  </Link>
+                                                              </h6>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          ); 
                                             
                                         })
                                         

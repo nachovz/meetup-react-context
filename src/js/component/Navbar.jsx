@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import {withSession} from '../stores/AppContext.jsx';
 import $ from "jquery";
+import {Consumer} from "../stores/AppContext.jsx";
 
 class Navbar extends React.Component{
     constructor(props){
@@ -23,6 +24,7 @@ class Navbar extends React.Component{
     
     render(){
         let homeActive = this.props.currentView === "home" ? "active" :"";
+        
         const {session, actions} = this.props;
         
         return(
@@ -41,16 +43,21 @@ class Navbar extends React.Component{
                                     
                                     <div className="d-flex">
                                         <Link className="nav-item nav-link " to={"/user/"+session.user_nicename.value}>
-                                                Hello, {session.user_display_name.charAt(0).toUpperCase()+session.user_display_name.substring(1)}
+                                                Hello, {session.user_nicename.charAt(0).toUpperCase()+session.user_nicename.substring(1)}
                                         </Link>
                                         <a className="nav-item nav-link" href="#" onClick={() => actions.logout()}>
                                                 Logout
                                         </a>
                                     </div>
                                 :
-                                    <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Login</button>
-                                
+                                    
+                                    <button 
+                                        type="button" 
+                                        className="btn btn-primary" 
+                                        data-toggle="modal" 
+                                        data-target="#exampleModal">Login</button>
                             }
+
                         </div>
                     </div>
                 </nav>

@@ -24,7 +24,7 @@ export default class Event extends React.Component {
   }
   
   render(){
-    ReactGA.pageview(window.location.pathname + window.location.search);
+    //ReactGA.pageview(window.location.pathname + window.location.search);
     
     return(
         <div>
@@ -40,8 +40,8 @@ export default class Event extends React.Component {
                             return(<p>Loading</p>);
                         
                         }else{ 
-                            const yesDisabled = typeof event.meta_keys._rsvpYes !== 'undefined' && event.meta_keys._rsvpYes.includes("nachovz")  ? "disabled" : "";
-                            const noDisabled =typeof event.meta_keys._rsvpNo !== 'undefined' && event.meta_keys._rsvpNo.includes("nachovz")  ? "disabled" : "";
+                            const yesDisabled = typeof event.meta_keys._rsvpYes !== 'undefined' && event.meta_keys._rsvpYes.includes(user.user_nicename)  ? "disabled" : "";
+                            const noDisabled =typeof event.meta_keys._rsvpNo !== 'undefined' && event.meta_keys._rsvpNo.includes(user.user_nicename)  ? "disabled" : "";
                             
                             let aTime = event.meta_keys.day+"T"+event.meta_keys.time.replace(/:/g,'');
                             let eventDay = Moment(aTime);
@@ -63,7 +63,7 @@ export default class Event extends React.Component {
                                                                 > 
                                                                     {
                                                                         state.meetups.length > 0 ?
-                                                                            state.meetups.find((meetup)=> meetup.ID === parseInt(event.meta_keys._meetup) ).post_title
+                                                                            state.meetups.find((meetup)=> parseInt(meetup.ID) === parseInt(event.meta_keys._meetup) ).post_title
                                                                         :
                                                                             "Loading..."
                                                                     } 
@@ -98,8 +98,7 @@ export default class Event extends React.Component {
                                                                         disabled={yesDisabled} 
                                                                         onClick={() => actions.rsvpEvent(   this.props.match.params.theid, 
                                                                                                             user.user_nicename, 
-                                                                                                            "yes", 
-                                                                                                            user.token)}
+                                                                                                            "yes")}
                                                                         >
                                                                         Yes
                                                                 </button>
@@ -110,8 +109,7 @@ export default class Event extends React.Component {
                                                                         disabled={noDisabled}
                                                                         onClick={() => actions.rsvpEvent(   this.props.match.params.theid, 
                                                                                                             user.user_nicename, 
-                                                                                                            "no", 
-                                                                                                            user.token)}
+                                                                                                            "no")}
                                                                         >
                                                                         No
                                                                 </button>
