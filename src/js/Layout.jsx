@@ -18,99 +18,40 @@ export default class Layout extends React.Component {
     super();
     
     this.state = {
-            "meetups": [/*
-                {   
-                    ID: 36,
-                    post_author: "1",
-                    post_date: "2018-04-24 00:21:11",
-                    post_date_gmt: "2018-04-24 00:21:11",
-                    post_content: "fsgfgdfg",
-                    post_title: "JABAJABAJABAJAB",
-                    post_excerpt: "",
-                    post_status: "publish",
-                    comment_status: "closed",
-                    ping_status: "closed",
-                    post_password: "",
-                    post_name: "5th-event-for-meetup-1",
-                    to_ping: "",
-                    pinged: "",
-                    post_modified: "2018-04-24 00:21:11",
-                    post_modified_gmt: "2018-04-24 00:21:11",
-                    post_content_filtered: "",
-                    post_parent: 0,
-                    guid: "https://wordpress-breathecode-cli-nachovz.c9users.io/?post_type=event&#038;p=36",
-                    menu_order: 0,
-                    post_type: "event",
-                    post_mime_type: "",
-                    comment_count: "0",
-                    filter: "raw",
-                    meta_keys: {
-                    _edit_last: "1",
-                    _edit_lock: "1525298021:1",
-                    day: "20180428",
-                    _day: "day",
-                    time: "07:00:00",
-                    _time: "time",
-                    _meetup: "9",
-                    _rsvpNo: [ ],
-                    _rsvpYes: [
-                    87,
-                    67,
-                    "nachovz"
-                    ]
-                    },
-                    thumbnail: false
-                }*/
-            ],
-            "events":[
+            events:[
                 {
                     ID: 36,
-                    post_author: "1",
-                    post_date: "2018-04-24 00:21:11",
-                    post_date_gmt: "2018-04-24 00:21:11",
-                    post_content: "fsgfgdfg",
-                    post_title: "JABAJABAJABAJAB",
-                    post_excerpt: "",
-                    post_status: "publish",
-                    comment_status: "closed",
-                    ping_status: "closed",
-                    post_password: "",
-                    post_name: "5th-event-for-meetup-1",
-                    to_ping: "",
-                    pinged: "",
-                    post_modified: "2018-04-24 00:21:11",
-                    post_modified_gmt: "2018-04-24 00:21:11",
-                    post_content_filtered: "",
-                    post_parent: 0,
-                    guid: "https://wordpress-breathecode-cli-nachovz.c9users.io/?post_type=event&#038;p=36",
-                    menu_order: 0,
-                    post_type: "event",
-                    post_mime_type: "",
-                    comment_count: "0",
-                    filter: "raw",
+                    post_content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec libero consectetur risus vehicula interdum eu at elit. Proin a commodo erat, eu molestie ipsum. Aliquam tristique nunc a est tristique, et convallis risus ullamcorper. Fusce nec massa ac enim pellentesque ornare. Pellentesque non sapien varius, pellentesque tellus sit amet, facilisis justo. Duis rhoncus nunc id elementum dapibus. Sed dictum lacinia vestibulum.",
+                    post_title: "Lorem Event",
                     meta_keys: {
-                    _edit_last: "1",
-                    _edit_lock: "1525298021:1",
-                    day: "20180428",
-                    _day: "day",
-                    time: "07:00:00",
-                    _time: "time",
-                    _meetup: "36",
-                    _rsvpNo: [ ],
-                    _rsvpYes: [
-                    87,
-                    67,
-                    "nachovz"
-                    ]
-                    },
-                    thumbnail: false
+                        day: "20180428",
+                        time: "07:00:00",
+                        _meetup: "9",
+                        _rsvpNo: [
+                            "robert",
+                            "jjtime",
+                            "username2"
+                        ],
+                        _rsvpYes: [
+                            "cheeselover",
+                            "neweradude",
+                            "james1996"
+                        ]
+                    }
                 }
             ],
-            "session":{/*
+            meetups:[
+                {
+                    ID: 9,
+                    post_content: "The nicest Meetup ever",
+                    post_title: "Tech Enthusiasts",
+                }
+            ],
+            session:{
                 ID: 2,
                 username: "theUser",
                 password: "1234",
-                token: "qwerty12345asdfgzxcv"*/
+                token: "qwerty12345asdfgzxcv"
             },
             "isLoading": true
         };
@@ -126,7 +67,8 @@ export default class Layout extends React.Component {
                         }
                         
                     });
-                */    //REST API AUTH
+                */    
+                //REST API AUTH
                     var data = {
                         "username":receivedUsername, 
                         "password":receivedPassword
@@ -145,22 +87,8 @@ export default class Layout extends React.Component {
                         
                         if (typeof(data.token) === "undefined" ) throw new Error(data.message);
                         this.setState({session: data});
-                        
-                        //ReactGA.set({ userId: data.user_nicename });
                     })
                     .catch(error => console.log(error));
-                  
-                    //Simulating user ID
-                    /*
-                    fetch('https://randomuser.me/api/?inc=id,name,picture')
-                    .then(res => res.json())
-                    .catch(error => {
-                      //console.error('Error:', error)
-                    })
-                    .then(response => {
-                      this.dispatch('MeetupStore.setSession', response);
-                    });*/
-                    
                     
                   },
             "rsvpEvent": (id, userId, answer) => {
@@ -185,12 +113,7 @@ export default class Layout extends React.Component {
                 tempArray[indexOfEvent] = event;
                 
                 this.setState({"events": tempArray});
-                
-                ReactGA.event({
-                  category: 'User',
-                  action: 'RSVP',
-                  value: answer === "yes" ? 1 : 0
-                });*/
+                */
                 
                 let url = 'https://wordpress-breathecode-cli-nachovz.c9users.io/wp-json/sample_api/v1/events/rsvp/';
                 
@@ -219,26 +142,17 @@ export default class Layout extends React.Component {
             },
             "loadInitialData": () => { 
                 
-            fetch('https://wordpress-breathecode-cli-nachovz.c9users.io/wp-json/sample_api/v1/events')
-              .then(response => response.json())
-              .then(data => this.setState({ events: data, isLoading: false }))
-              .catch(error => console.log(error));
-              
-            fetch('https://wordpress-breathecode-cli-nachovz.c9users.io/wp-json/sample_api/v1/meetups')
-              .then(response => response.json())
-              .then(data => this.setState({ meetups: data }))
-              .catch(error => console.log(error));
-            }
-            /*"changeEvent": () => {
-            this.setState({events: this.state.events.map( (event, i) => {
-                if(i === 0){  
-                  event.post_title = "HOLA";
+                fetch('https://wordpress-breathecode-cli-nachovz.c9users.io/wp-json/sample_api/v1/events')
+                  .then(response => response.json())
+                  .then(data => this.setState({ events: data, isLoading: false }))
+                  .catch(error => console.log(error));
+                  
+                fetch('https://wordpress-breathecode-cli-nachovz.c9users.io/wp-json/sample_api/v1/meetups')
+                  .then(response => response.json())
+                  .then(data => this.setState({ meetups: data }))
+                  .catch(error => console.log(error));
                 }
-                return event;
-              })
-            });
-            },
-            "logout": () => this.setState({session: {}})*/
+            
     };
   }
   
