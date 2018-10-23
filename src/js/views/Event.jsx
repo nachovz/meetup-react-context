@@ -40,8 +40,11 @@ export default class Event extends React.Component {
                             return(<p>Loading</p>);
                         
                         }else{ 
-                            const yesDisabled = typeof event.meta_keys._rsvpYes !== 'undefined' && event.meta_keys._rsvpYes.includes(user.user_nicename)  ? "disabled" : "";
-                            const noDisabled =typeof event.meta_keys._rsvpNo !== 'undefined' && event.meta_keys._rsvpNo.includes(user.user_nicename)  ? "disabled" : "";
+                            //const yesDisabled = typeof event.meta_keys._rsvpYes !== 'undefined' && event.meta_keys._rsvpYes.includes(user.user_nicename)  ? "disabled" : "";
+                            //const noDisabled =typeof event.meta_keys._rsvpNo !== 'undefined' && event.meta_keys._rsvpNo.includes(user.user_nicename)  ? "disabled" : "";
+                            
+                            const yesDisabled = true;
+                            const noDisabled = true;
                             
                             let aTime = event.meta_keys.day+"T"+event.meta_keys.time.replace(/:/g,'');
                             let eventDay = Moment(aTime);
